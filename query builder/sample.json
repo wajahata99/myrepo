@@ -1,0 +1,19 @@
+{"dimensions": 
+    {"process_segment":
+        {"name":
+            {"values":["ps1","ps2"],
+                "measure":"count"},
+        "type":
+            {"values":["ps_type_1","ps_type_2"],
+                "measure":"count"}
+        },
+    "dim_kpi":
+        {"Kpi_name":
+            {"values":["kpi_1","kpi_2"],
+                "measure":"count"},
+        "type":
+            {"values":["kpi_type_1","kpi_type_2"],
+                "measure":"count"}
+        }
+    }
+} 
