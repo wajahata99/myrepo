@@ -4,6 +4,9 @@ class person:
         self.name=name
         self.town = home_town
 
+    def myname(self):
+        str = "hello my name is "+self.name
+        return str
 
 class education(person):
     def __init__(self, name,age,home_town, school, years_of_education):
@@ -13,5 +16,10 @@ class education(person):
     
     def estimated_experience(self,a):
         self.a=a
-        print("Welcome")
-        print (self.age-self.years_of_education+a)
+        #print("Welcome")
+        return self.age-self.years_of_education+a
+
+
+myperson=person("wajahat",10,"Lahore")
+myperson.myname()
+
