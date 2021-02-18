@@ -1,0 +1,17 @@
+﻿id,enterprise ,Site,Area ,WorkCenter ,WorkUnit 
+1,Enterprise1,Site1,Area1,WorkCenter1,WorkUnit1
+2,Enterprise1,Site1,Area1,WorkCenter1,WorkUnit2
+3,Enterprise1,Site1,Area1,WorkCenter2,WorkUnit1
+4,Enterprise1,Site1,Area1,WorkCenter2,WorkUnit2
+5,Enterprise1,Site1,Area2,WorkCenter1,WorkUnit1
+6,Enterprise1,Site1,Area2,WorkCenter1,WorkUnit2
+7,Enterprise1,Site1,Area2,WorkCenter2,WorkUnit1
+8,Enterprise1,Site1,Area2,WorkCenter2,WorkUnit2
+9,Enterprise1,Site2,Area1,WorkCenter1,WorkUnit1
+10,Enterprise1,Site2,Area1,WorkCenter1,WorkUnit2
+11,Enterprise1,Site2,Area1,WorkCenter2,WorkUnit1
+12,Enterprise1,Site2,Area1,WorkCenter2,WorkUnit2
+13,Enterprise1,Site2,Area2,WorkCenter1,WorkUnit1
+14,Enterprise1,Site2,Area2,WorkCenter1,WorkUnit2
+15,Enterprise1,Site2,Area2,WorkCenter2,WorkUnit1
+16,Enterprise1,Site2,Area2,WorkCenter2,WorkUnit2

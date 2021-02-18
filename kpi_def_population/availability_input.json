@@ -1,0 +1,182 @@
+{
+    "sourceFields": [
+        {
+            "factRecords": null,
+            "sourceField": "unutilized_state",
+            "dimensionRecords": [
+                {
+                    "record": "process segment",
+                    "dimensionTable": "dim_process_segment",
+                    "lookupParameters": [
+                        {
+                            "value": null,
+                            "condition": "is",
+                            "parameter": "stream_code"
+                        },
+                        {
+                            "value": null,
+                            "condition": "is",
+                            "parameter": "stream_name"
+                        },
+                        {
+                            "value": null,
+                            "condition": "in",
+                            "parameter": "process_segment_code"
+                        },
+
+                        {
+                            "value": null,
+                            "condition": "is",
+                            "parameter": "material_segment_specification_code"
+                        },
+                        {
+                            "value": null,
+                            "condition": "is",
+                            "parameter": "equipment_segment_specification_code"
+                        },
+                        {
+                            "value": null,
+                            "condition": "is",
+                            "parameter": "personnel_segment_specification_code"
+                        }
+                    ]
+                },
+                {
+                    "record": "event",
+                    "dimensionTable": "dim_event",
+                    "lookupParameters": [
+                        {
+                            "value": [
+                                "process_segment"
+                            ],
+                            "condition": "in",
+                            "parameter": "event_concept"
+                        },
+                        {
+                            "value": [
+                                "operational_state_event"
+                            ],
+                            "condition": "in",
+                            "parameter": "event_category"
+                        }
+                    ]
+                },
+                {
+                    "record": "states",
+                    "dimensionTable": "dim_state",
+                    "lookupParameters": [
+                        {
+                            "value": [
+                                "process_segment"
+                            ],
+                            "condition": "in",
+                            "parameter": "state_concept"
+                        },
+                        {
+                            "value": [
+                                "unscheduled"
+                            ],
+                            "condition": "in",
+                            "parameter": "state_code"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "factRecords": null,
+            "sourceField": "breakdown_excluding_minor_time_state",
+            "dimensionRecords": [
+                {
+                    "record": "process segment",
+                    "dimensionTable": "dim_process_segment",
+                    "lookupParameters": [
+                        {
+                            "value": null,
+                            "condition": "is",
+                            "parameter": "stream_code"
+                        },
+                        {
+                            "value": null,
+                            "condition": "is",
+                            "parameter": "stream_name"
+                        },
+                        {
+                            "value": null,
+                            "condition": "in",
+                            "parameter": "process_segment_code"
+                        },
+                        {
+                            "value": null,
+                            "condition": "is",
+                            "parameter": "material_segment_specification_code"
+                        },
+                        {
+                            "value": null,
+                            "condition": "is",
+                            "parameter": "equipment_segment_specification_code"
+                        },
+                        {
+                            "value": null,
+                            "condition": "is",
+                            "parameter": "personnel_segment_specification_code"
+                        }
+                    ]
+                },
+                {
+                    "record": "event",
+                    "dimensionTable": "dim_event",
+                    "lookupParameters": [
+                        {
+                            "value": [
+                                "process_segment"
+                            ],
+                            "condition": "in",
+                            "parameter": "event_concept"
+                        },
+                        {
+                            "value": [
+                                "operational_state_event"
+                            ],
+                            "condition": "in",
+                            "parameter": "event_category"
+                        }
+                    ]
+                },
+                {
+                    "record": "states",
+                    "dimensionTable": "dim_state",
+                    "lookupParameters": [
+                        {
+                            "value": [
+                                "process_segment"
+                            ],
+                            "condition": "in",
+                            "parameter": "state_concept"
+                        },
+                        {
+                            "value": [
+                                "breakdown"
+                            ],
+                            "condition": "in",
+                            "parameter": "state_code"
+                        }
+                    ]
+                },
+                {
+                    "record": "reason",
+                    "dimensionTable": "dim_reason",
+                    "lookupParameters": [
+                        {
+                            "value": [
+                                "minor_stoppage_idling"
+                            ],
+                            "condition": "not in",
+                            "parameter": "reason_subcategory_code"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

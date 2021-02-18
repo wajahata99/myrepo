@@ -22,4 +22,3 @@ class education(person):
 
 myperson=person("wajahat",10,"Lahore")
 myperson.myname()
-

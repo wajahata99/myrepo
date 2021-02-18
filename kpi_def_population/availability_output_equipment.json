@@ -1,0 +1,80 @@
+{
+    "sourceFields": [
+        {
+            "factRecords": [
+                {
+                    "factTable": "second_fact",
+                    "factColumn": "value_mean"
+                }
+            ],
+            "sourceField": "availability",
+            "dimensionRecords": [
+                {
+                    "dimensionTable": "dim_process_segment",
+                    "lookupParameters": [
+                        {
+                            "value": null,
+                            "condition": "is",
+                            "parameter": "stream_code"
+                        },
+                        {
+                            "value": null,
+                            "condition": "is",
+                            "parameter": "stream_name"
+                        },
+                        {
+                            "value": null,
+                            "condition": "in",
+                            "parameter": "process_segment_code"
+                        },
+                        {
+                            "value": null,
+                            "condition": "is",
+                            "parameter": "material_segment_specification_code"
+                        },
+                        {
+                            "value": null,
+                            "condition": "is",
+                            "parameter": "equipment_segment_specification_code"
+                        },
+                        {
+                            "value": null,
+                            "condition": "is",
+                            "parameter": "personnel_segment_specification_code"
+                        }
+                    ]
+                },
+                {
+                    "record": "equipment",
+                    "dimensionTable": "dim_equipment",
+                    "lookupParameters": [
+                        {
+                            "value": null,
+                            "condition": "in",
+                            "parameter": "equipment_code"
+                        }
+                    ]
+                },
+                {
+                    "dimensionTable": "dim_kpi",
+                    "lookupParameters": [
+                        {
+                            "value": [
+                                "equipment"
+                            ],
+                            "condition": "in",
+                            "parameter": "kpi_concept"
+                        },
+                        {
+                            "value": [
+                                "availability"
+                            ],
+                            "condition": "in",
+                            "parameter": "kpi_type_code"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
