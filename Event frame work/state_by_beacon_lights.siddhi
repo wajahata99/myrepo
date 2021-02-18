@@ -1,0 +1,304 @@
+@App:name("state_by_beacon_lights")
+@App:description("Determin states from from red and green beacon light!")
+
+define function get_state[JavaScript] return string{
+    var green_state = data[0];
+    var red_state = data[1];
+    if (green_state == null && red_state == null){return 'breakdown'}
+    
+    if (green_state == null && red_state != null){
+        if (red_state == 'on' || red_state == 'flashing'){return 'breakdown'}
+        if (red_state == 'off'){return 'running'}
+    }
+
+    if (red_state == null && green_state != null){
+        if (green_state == 'off' || green_state == 'flashing'){return 'breakdown'}
+        if (green_state == 'on'){return 'running'}
+    }
+
+    if (red_state != null && green_state != null){
+        if (green_state == 'on' && red_state == 'off'){
+            return 'running';
+        } else{
+            return 'breakdown';
+        }
+    }
+}; 
+
+
+define function get_reason[JavaScript] return string{
+    var prev_state = data[0];
+    var current_state = data[1];
+    var properties = JSON.parse(data[2]);
+    var register = JSON.parse(data[3]);
+    
+    var output = {};
+    output['reason_category'] = '';
+    output['reason'] = '';
+
+    var alarm_reason_mapping = properties.alarm_reason_mapping_json;
+    try{
+        if (prev_state == 'running' && current_state == 'breakdown' && register.length>0 && alarm_reason_mapping.length>0){
+            
+            for (var i = 0; i < alarm_reason_mapping.length; i = i+1){
+                var case_ref = alarm_reason_mapping[i];
+                var case_alarms = case_ref.alarms;
+                var match = true;
+                
+                for (var j = 0; j < case_alarms.length; j = j+1){
+                    if(register.indexOf(case_alarms[j]) == -1){match == false}
+                }
+                if (match == true){
+                    output['reason_category'] = case_ref.reason_category;
+                    output['reason'] = case_ref.reason;
+                    return JSON.stringify(output) 
+                }
+            }        
+        }
+    }catch(err){
+        return JSON.stringify(output) 
+    }
+    return JSON.stringify(output) 
+}; 
+
+
+
+@store(type='intech-context')
+define table EventContextTable(eid string, id string, payload string, flow_name string);
+
+@source(type = 'mqtt', url = "tcp://phoenix-service:1883", topic = "red_beacon_light_sbbl", client.id='red_ssbl', quality.of.service = "1" , automatic.reconnect='true', clean.session='false',
+	@map(type = 'intech-json', json.envelope = "$.", property.t='$.t',property.id='$.id',property.q='$.q',property.v='$.v'))
+define stream RedSignal (id string, t long, q bool, v int);
+
+@Async(buffer.size='256', workers='2', batch.size.max='5')
+@source(type = 'mqtt', url = "tcp://phoenix-service:1883", topic = "green_beacon_light_sbbl", client.id='green_ssbl', quality.of.service = "1" ,automatic.reconnect='true', clean.session='false',
+	@map(type = 'intech-json', json.envelope = "$.", property.t='$.t',property.id='$.id',property.q='$.q',property.v='$.v'))
+define stream GreenSignal (id string, t long, q bool, v int);
+
+@source(type = 'mqtt', url = "tcp://phoenix-service:1883", topic = "context_info_sbbl", client.id='context_ssbl' ,quality.of.service = "1" ,automatic.reconnect='true', clean.session='false',
+	@map(type = 'intech-json', json.envelope = "$.", property.id = "$.id", property.t = "$.t", property.q = "$.q", 
+    property.message="$.v.message", property.process_segment_code ="$.v.process_segment_code",
+   property.operation_segment_code  ="$.v.operation_segment_code",
+   property.operation_definition_code ="$.v.operation_definition_code",
+   property.operation_request_code ="$.v.operation_request_code" ,
+   property.segment_requirement_code  ="$.v.segment_requirement_code",
+   property.operation_response_code  ="$.v.operation_response_code",
+  property.segment_response_code  ="$.v.segment_response_code" ))
+define stream EquipmentContextInfo(id string, t long, q bool, message string, process_segment_code string, operation_segment_code string, operation_definition_code string, operation_request_code string, segment_requirement_code string, operation_response_code string, segment_response_code string);
+
+@source(type='mqtt', topic='alarm_events_sbbl', url="tcp://phoenix-service:1883", client.id='state_event_ssbl' ,automatic.reconnect='true', clean.session='false',
+    @map(type='intech-json',  json.envelope = "$.", property.source='$.source', property.t='$.time', property.severity='$.severity', property.message='$.message', property.register='$.custom.register'))
+define stream AlarmEvents(source string, t long, severity int, message string, register string);
+
+
+@sink(type='log')
+@sink(type = 'mqtt', url = "tcp://phoenix-service:1883", topic = "ev/dwh/eq_state", quality.of.service = "1", automatic.reconnect='true', clean.session='false',
+    @map(type = 'intech-json', json.template="""{"timestamp":$t, "values": [{"source":$source, "eventType":$event_type,
+     "eventCategory":$event_category, "severity":$severity, "message": $message, "time":$t,
+      "custom":{"dt_entity_category": $dt_entity_category, "dt_entity_uuid": $dt_entity_uuid, "dt_entity_code":$dt_entity_code,
+      "process_segment_code":$process_segment_code,"operation_segment_code":$operation_segment_code,"operation_definition_code":$operation_definition_code,
+      "operation_request_code":$operation_request_code,"segment_requirement_code":$segment_requirement_code,"operation_response_code":$operation_response_code,
+      "segment_response_code":$segment_response_code,"previous_state":$prev_state, "current_state":$current_state, "reason_category":$reason_category,
+      "reason":$reason, "alarm_codes":$alarm_codes, "alarm_messages":$alarm_messages}}]}"""))
+define stream OutputStream (source string, event_type string, event_category string, severity int, message string, t long, dt_entity_category string, dt_entity_uuid string, dt_entity_code string, process_segment_code string, operation_segment_code string, operation_definition_code string, operation_request_code string, segment_requirement_code string, operation_response_code string, segment_response_code string, prev_state string, current_state string, reason_category string, reason string, alarm_codes object, alarm_messages object);
+
+define table LightState (eid string, id string, equipment_code string, color string, light_state string);
+
+define window AlarmWindow (source string, t long, severity int, message object, register object) time(20 second) output current events;
+
+define table EquipmentsInProduction (equipment string, message string, process_segment_code string, operation_segment_code string, operation_definition_code string, operation_request_code string, segment_requirement_code string, operation_response_code string, segment_response_code string);
+
+
+/* MANAGE SCHEDULE EVENTS */
+
+from EquipmentContextInfo as INPUT
+	join EventContextTable as ECT
+	on (INPUT.id == ECT.id) and (ECT.flow_name == 'state_by_beacon_lights')
+select INPUT.id as id, INPUT.t as t, ECT.payload as payload, message, process_segment_code, operation_segment_code, operation_definition_code, operation_request_code, segment_requirement_code, operation_response_code, segment_response_code, time:timestampInMilliseconds() as start
+insert into EquipmentContextInfo2;
+
+from EquipmentContextInfo2
+select id, t, payload, json:getString(payload, "$.dt_entity_code") as equipment, message, process_segment_code, operation_segment_code, operation_definition_code, operation_request_code, segment_requirement_code, operation_response_code, segment_response_code, start
+insert into EquipmentContextInfo3;
+
+from EquipmentContextInfo3[message == 'stop']
+delete EquipmentsInProduction
+    on EquipmentsInProduction.equipment == equipment;
+
+from EquipmentContextInfo3[message == 'start']
+select equipment, message, process_segment_code, operation_segment_code, operation_definition_code, operation_request_code, segment_requirement_code, operation_response_code, segment_response_code
+update or insert into EquipmentsInProduction
+    on EquipmentsInProduction.equipment == equipment;
+
+
+/* This is begining triggers*/
+
+from EquipmentContextInfo3[message == 'stop']
+select t as t, 'not_scheduled' as current_state, payload, process_segment_code, operation_segment_code, operation_definition_code, operation_request_code, segment_requirement_code, operation_response_code, segment_response_code,start
+insert into StateStream;
+
+from EquipmentContextInfo3[message == 'start']
+select *
+insert into StartTrigger;
+
+from StartTrigger as ST
+left outer join LightState as LS
+on (LS.equipment_code == ST.equipment) and (LS.color == 'green')
+select ST.t as t, LS.light_state as green_state, ST.payload as payload, ST.equipment as equipment, message, process_segment_code, operation_segment_code, operation_definition_code, operation_request_code, segment_requirement_code, operation_response_code, segment_response_code, start
+insert into StartTrigger1;
+
+
+from StartTrigger1 as ST
+left outer join LightState as LS
+on (LS.equipment_code == ST.equipment) and (LS.color == 'red')
+select ST.t as t, ST.green_state as green_state, LS.light_state as red_state, ST.payload as payload, process_segment_code, operation_segment_code, operation_definition_code, operation_request_code, segment_requirement_code, operation_response_code, segment_response_code, start
+insert into EnrichedLight2;
+
+
+/*MANAGE ALARM EVENTS*/
+from AlarmEvents [severity == 1000]
+select source, t, severity, createSet(message) as message, createSet(register) as register
+insert into AlarmWindow;
+
+
+/*MANAGE BEACON LIGHTS*/
+from GreenSignal
+select id as id, t as t, v as v, 'green' as color, metrics:rate('state_by_beacon_lights', 'total_light_messages', 1L) as total_msgs
+insert into Signal;
+
+from RedSignal
+select id as id, t as t, v as v, 'red' as color, metrics:rate('state_by_beacon_lights', 'total_light_messages', 1L) as total_msgs
+insert into Signal;
+
+from every( e1=Signal ) -> e2=Signal[ e1.v != v and e1.id==id]
+    within 7 sec
+select e1.id as id, e1.t as t, "flashing" as light_cur_state, e1.color as color, time:timestampInMilliseconds() as start
+insert into Signal1;
+
+from every (e1=Signal) -> not Signal[ e1.v != v and e1.id==id] for 7 sec
+select e1.id as id, e1.t as t, ifThenElse(e1.v == 1, "on", "off") as light_cur_state, e1.color as color, time:timestampInMilliseconds() as start
+insert into Signal1;
+
+from Signal1 as S1
+left outer join LightState as LS
+on LS.id == S1.id
+select S1.id as id, S1.t as t, LS.light_state as light_prev_state, S1.light_cur_state, S1.color, S1.start
+insert into Signal2;
+
+
+from Signal2 [light_cur_state != light_prev_state]
+select id, t, light_cur_state as light_state, color, start
+insert into Signal3;
+
+
+from Signal3 as S3
+	join EventContextTable as ECT
+	on (S3.id == ECT.id) and (ECT.flow_name == 'state_by_beacon_lights')
+select S3.id as id, S3.t as t, S3.light_state as light_state, S3.color as color, ECT.eid as eid, ECT.payload as payload, S3.start as start
+insert into Signal4;
+
+from Signal4 
+select eid as eid, id as id, json:getString(payload, "$.dt_entity_code") as equipment_code, color as color, light_state as light_state
+update or insert into LightState
+    on LightState.id == id;
+
+from Signal4 [color == 'green']
+select *
+insert into G1;
+
+from Signal4 [color == 'red']
+select *
+insert into R1;
+
+from G1 as INPUT
+left outer join LightState as LS
+on (INPUT.eid == LS.eid) and (LS.color == 'red')
+select INPUT.t as t, INPUT.light_state as green_state, LS.light_state as red_state, INPUT.payload as payload, INPUT.start as start
+insert into EnrichedLight;
+
+from R1 as INPUT
+left outer join LightState as LS
+on (INPUT.eid == LS.eid) and (LS.color == 'green')
+select INPUT.t as t, LS.light_state as green_state, INPUT.light_state as red_state, INPUT.payload as payload, INPUT.start as start
+insert into EnrichedLight;
+
+from EnrichedLight
+select t, green_state, red_state, payload, json:getString(payload, "$.dt_entity_code") as equipment, start
+insert into EnrichedLight1;
+
+from EnrichedLight1 as EL
+join EquipmentsInProduction as EIP
+on (EL.equipment == EIP.equipment)
+select EL.t as t, EL.green_state as green_state, EL.red_state as red_state, EL.payload as payload, process_segment_code, operation_segment_code, operation_definition_code, operation_request_code, segment_requirement_code, operation_response_code, segment_response_code, EL.start as start
+insert into EnrichedLight2;
+
+
+from EnrichedLight2
+select t as t, get_state(green_state, red_state) as current_state, payload, process_segment_code, operation_segment_code, operation_definition_code, operation_request_code, segment_requirement_code, operation_response_code, segment_response_code, start
+insert into StateStream;
+
+/*STANDARD STATE CHECK LOGIC*/
+from StateStream#rdbms:query('digital_twin', 'select * from get_last_state(?,?,?) as prev_state', 
+	json:getString(payload, "$.dt_entity_category"), 
+	json:getString(payload, '$.dt_entity_uuid'), 
+	json:getString(payload, '$.dt_fsm.operation'), 'prev_state string') 
+select t, prev_state, current_state, payload, process_segment_code, operation_segment_code, operation_definition_code, operation_request_code, segment_requirement_code, operation_response_code, segment_response_code, start
+insert into WithLastState;
+
+
+from WithLastState#rdbms:query('digital_twin', 'select * from validate_state_transition(?,?,?) as valid', prev_state, current_state,
+ 	json:getString(payload, '$.dt_fsm.operation'), 'valid int')
+select t, prev_state, current_state, payload, valid, process_segment_code, operation_segment_code, operation_definition_code, operation_request_code, segment_requirement_code, operation_response_code, segment_response_code, start
+insert into ValidTransition;
+
+from ValidTransition [valid == 1]
+select t, prev_state, current_state, payload, json:getString(payload, "$.properties.alarm_events") as alarm_source, process_segment_code, operation_segment_code, operation_definition_code, operation_request_code, segment_requirement_code, operation_response_code, segment_response_code, start
+insert into StateStream1;
+
+/*STANDARD STATE CHECK LOGIC*/
+
+
+from StateStream1 as S
+    left outer join AlarmWindow as A
+    on S.alarm_source == A.source
+select S.t, S.prev_state, S.current_state, S.payload, process_segment_code, operation_segment_code, operation_definition_code, operation_request_code, segment_requirement_code, operation_response_code, segment_response_code,
+    ifThenElse(register is null, "[]", json:toString(unionSet(register))) as register,
+    ifThenElse(message is null, "[]", json:toString(unionSet(message))) as alarms,
+    start
+group by source
+insert into FinalStream;
+
+from FinalStream
+select t, prev_state, current_state, payload, register, alarms, process_segment_code, operation_segment_code, operation_definition_code, operation_request_code, segment_requirement_code, operation_response_code, segment_response_code,
+    get_reason(prev_state, current_state, json:getString(payload, "$.properties"), register) as reason, start
+insert into FinalStream1;
+
+/*STANDARD STATE UPDATE LOGIC*/
+from FinalStream1#rdbms:cud('digital_twin', 'select * from update_state(?,?,?,?) as valid', 
+    json:getString(payload, "$.dt_entity_category"), 
+	json:getString(payload, '$.dt_entity_uuid'), 
+	json:getString(payload, '$.dt_fsm.operation'), current_state)
+select t, prev_state, current_state, payload, register, alarms, reason, process_segment_code, operation_segment_code, operation_definition_code, operation_request_code, segment_requirement_code, operation_response_code, segment_response_code, metrics:latency('state_by_beacon_lights', 'processing_latency', time:timestampInMilliseconds() - start) as processing_latency, metrics:rate('state_by_beacon_lights', 'total_state_changes', 1L) as total_state_changes
+insert into FinalStreamEmit;
+
+from FinalStreamEmit
+select 
+    json:getString(payload, "$.event_type_instance_code") as source,
+    json:getString(payload, "$.event_type_code") as event_type,
+    json:getString(payload, "$.event_category") as event_category,
+    1 as severity,
+    'Generated by state by beacon lights siddhi file' as message,
+    t as t,    
+    json:getString(payload, "$.dt_entity_category") as dt_entity_category,
+    json:getString(payload, "$.dt_entity_uuid") as dt_entity_uuid,
+    json:getString(payload, "$.dt_entity_code") as dt_entity_code,
+    process_segment_code, operation_segment_code, operation_definition_code, 
+    operation_request_code, segment_requirement_code, operation_response_code, 
+    segment_response_code,    
+    prev_state as prev_state,
+    current_state as current_state,
+    json:getString(reason, "$.reason_category") as reason_category,
+    json:getString(reason, "$.reason") as reason,
+    json:toObject(register) as alarm_codes,
+    json:toObject(alarms) as alarm_messages
+insert into OutputStream;

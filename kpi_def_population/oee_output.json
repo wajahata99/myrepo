@@ -1,0 +1,76 @@
+{
+    "sourceFields": [
+        {
+            "factRecords": [
+                {
+                    "factTable": "second_fact",
+                    "factColumn": "value_mean"
+                }
+            ],
+            "sourceField": "oee",
+            "dimensionRecords": [
+                {
+                    "dimensionTable": "dim_process_segment",
+                    "lookupParameters": [
+                        {
+                            "value": null,
+                            "condition": "is",
+                            "parameter": "stream_code"
+                        },
+                        {
+                            "value": null,
+                            "condition": "is",
+                            "parameter": "stream_name"
+                        },
+                        {
+                            "value": null,
+                            "condition": "in",
+                            "parameter": "process_segment_code"
+                        },
+                        {
+                            "value": [
+                                "production"
+                            ],
+                            "condition": "in",
+                            "parameter": "operations_type"
+                        },
+                        {
+                            "value": null,
+                            "condition": "is",
+                            "parameter": "material_segment_specification_code"
+                        },
+                        {
+                            "value": null,
+                            "condition": "is",
+                            "parameter": "equipment_segment_specification_code"
+                        },
+                        {
+                            "value": null,
+                            "condition": "is",
+                            "parameter": "personnel_segment_specification_code"
+                        }
+                    ]
+                },
+                {
+                    "dimensionTable": "dim_kpi",
+                    "lookupParameters": [
+                        {
+                            "value": [
+                                "process_segment"
+                            ],
+                            "condition": "in",
+                            "parameter": "kpi_concept"
+                        },
+                        {
+                            "value": [
+                                "oee"
+                            ],
+                            "condition": "in",
+                            "parameter": "kpi_type_code"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

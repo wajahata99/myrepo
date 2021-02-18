@@ -1,0 +1,40 @@
+@App:name("arthresholdload1")
+@App:description("Updated mapper eventing app")
+ 
+@store(type='intech-context')
+define table ContextStore(eid string, id string, payload string, flow_name string);
+
+@source(type = 'mqtt', url = "tcp://phoenix-service:1883", topic = "myTopicload1", client.id='arthresholdload_app_source1' , automatic.reconnect='true', clean.session='false',
+@map(type='intech-json', json.envelope= '$.',
+property.t='$.t',
+property.id='$.id',
+property.q='$.q',
+property.v='$.v'
+))
+define stream InputStream(id string, t long, v double, q bool);
+
+@sink(type='mqtt',
+topic='ev/arthresholdload1',
+url='tcp://phoenix-service:1883',
+client.id='arthresholdload_app_sink1',
+automatic.reconnect='true',
+clean.session='false',
+@map(type='intech-json',
+json.template = """
+{"timestamp":$time, "values":[{"eventCategory":$eventCategory, "eventType":$eventType, "message":$message, "severity":$severity, "source":$source, "time":$time}]}"""))
+
+define stream outeventstream(eventCategory string, eventType string, message string,severity int, source string,time long);
+
+from InputStream as InS 
+join ContextStore as CXT
+on InS.id==CXT.id and flow_name=="arthresholdload1"
+select InS.id as id, InS.v as v, InS.t as t, CXT.eid as eid, CXT.payload as payload
+insert into enrichedInputStream;
+
+from enrichedInputStream
+select id, v, t, eid, cast(json:getDouble(payload, "$.properties.threshold"),'double') as threshold, json:getString(payload, "$.properties.message") as message, json:getInt(payload, "$.properties.severity") as severity
+insert into enrichedInputStream2;
+
+from enrichedInputStream2[v>threshold]
+select "LevelEvent" as eventCategory, "ConditionEvent" as eventType, message, cast(severity,'int') as severity, eid as source, t as time
+insert into outeventstream;
