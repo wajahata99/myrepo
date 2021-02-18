@@ -1,0 +1,53 @@
+﻿id,Cocept_dimension_source,event_concept,abstract_event_type_code,abstract_event_type_name,Concrete_event_type_code,Concrete_event_type_name,insert_date_time,last_update_date_time,delete_flag
+1,DT,ProcessSegment,state_event,State Event,operational_state_event,OperationalStateEvent,'2020-06-21 11:26:00',,FALSE
+2,DT,ProcessSegment,,State Event,,OperationalStateEvent,'2020-06-21 11:26:00',,FALSE
+3,DT,ProcessSegment,,State Event,,OperationalStateEvent,'2020-06-21 11:26:00',,FALSE
+4,DT,ProcessSegment,,State Event,,OperationalStateEvent,'2020-06-21 11:26:00',,FALSE
+5,DT,ProcessSegment,,State Event,,OperationalStateEvent,'2020-06-21 11:26:00',,FALSE
+6,DT,ProcessSegment,,State Event,,OperationalStateEvent,'2020-06-21 11:26:00',,FALSE
+7,DT,ProcessSegment,,State Event,,OperationalStateEvent,'2020-06-21 11:26:00',,FALSE
+8,DT,ProcessSegment,,State Event,,OperationalStateEvent,'2020-06-21 11:26:00',,FALSE
+9,DT,Execution,,State Event,,Maintenance State,'2020-06-21 11:26:00',,FALSE
+10,DT,Execution,,State Event,,Maintenance State,'2020-06-21 11:26:00',,FALSE
+11,DT,Execution,,State Event,,Maintenance State,'2020-06-21 11:26:00',,FALSE
+12,DT,Execution,,State Event,,Maintenance State,'2020-06-21 11:26:00',,FALSE
+13,DT,Execution,,State Event,,Maintenance State,'2020-06-21 11:26:00',,FALSE
+14,DT,Execution,,State Event,,Maintenance State,'2020-06-21 11:26:00',,FALSE
+15,DT,Execution,,State Event,,Maintenance State,'2020-06-21 11:26:00',,FALSE
+16,DT,Execution,,State Event,,Maintenance State,'2020-06-21 11:26:00',,FALSE
+17,DT,Execution,,State Event,,ActingStateEvent,'2020-06-21 11:26:00',,FALSE
+18,DT,Execution,,State Event,,ActingStateEvent,'2020-06-21 11:26:00',,FALSE
+19,DT,Execution,,State Event,,ActingStateEvent,'2020-06-21 11:26:00',,FALSE
+20,DT,Execution,,State Event,,ActingStateEvent,'2020-06-21 11:26:00',,FALSE
+21,DT,Execution,,State Event,,ActingStateEvent,'2020-06-21 11:26:00',,FALSE
+22,DT,Execution,,State Event,,ActingStateEvent,'2020-06-21 11:26:00',,FALSE
+23,DT,Execution,,State Event,,ActingStateEvent,'2020-06-21 11:26:00',,FALSE
+24,DT,Execution,,State Event,,ActingStateEvent,'2020-06-21 11:26:00',,FALSE
+25,DT,Equipment,,Threshold Event,,InletTemperatureThresholdEvent,'2020-06-21 11:26:00',,FALSE
+26,DT,Equipment,,Threshold Event,,InletTemperatureThresholdEvent,'2020-06-21 11:26:00',,FALSE
+27,DT,Equipment,,Threshold Event,,InletTemperatureThresholdEvent,'2020-06-21 11:26:00',,FALSE
+28,DT,Equipment,,Threshold Event,,InletTemperatureThresholdEvent,'2020-06-21 11:26:00',,FALSE
+29,DT,Equipment,,Threshold Event,,InletTemperatureThresholdEvent,'2020-06-21 11:26:00',,FALSE
+30,DT,Equipment,,Threshold Event,,InletTemperatureThresholdEvent,'2020-06-21 11:26:00',,FALSE
+31,DT,Equipment,,Threshold Event,,InletTemperatureThresholdEvent,'2020-06-21 11:26:00',,FALSE
+32,DT,Equipment,,Threshold Event,,InletTemperatureThresholdEvent,'2020-06-21 11:26:00',,FALSE
+33,DT,Equipment,,Threshold Event,,InletTemperatureThresholdEvent,'2020-06-21 11:26:00',,FALSE
+34,DT,Equipment,,Threshold Event,,InletTemperatureThresholdEvent,'2020-06-21 11:26:00',,FALSE
+35,DT,Equipment,,Threshold Event,,InletTemperatureThresholdEvent,'2020-06-21 11:26:00',,FALSE
+36,DT,Equipment,,Threshold Event,,InletTemperatureThresholdEvent,'2020-06-21 11:26:00',,FALSE
+37,DT,Equipment,,Threshold Event,,InletTemperatureThresholdEvent,'2020-06-21 11:26:00',,FALSE
+38,DT,Equipment,,Threshold Event,,InletTemperatureThresholdEvent,'2020-06-21 11:26:00',,FALSE
+39,DT,ProcessSegment,,Threshold Event,,InletTemperatureThresholdEvent,'2020-06-21 11:26:00',,FALSE
+40,DT,ProcessSegment,,Threshold Event,,InletTemperatureThresholdEvent,'2020-06-21 11:26:00',,FALSE
+41,DT,ProcessSegment,,Threshold Event,,InletTemperatureThresholdEvent,'2020-06-21 11:26:00',,FALSE
+42,DT,ProcessSegment,,Threshold Event,,InletTemperatureThresholdEvent,'2020-06-21 11:26:00',,FALSE
+43,DT,ProcessSegment,,Threshold Event,,InletTemperatureThresholdEvent,'2020-06-21 11:26:00',,FALSE
+44,DT,ProcessSegment,,Threshold Event,,InletTemperatureThresholdEvent,'2020-06-21 11:26:00',,FALSE
+45,DT,ProcessSegment,,Threshold Event,,InletTemperatureThresholdEvent,'2020-06-21 11:26:00',,FALSE
+46,DT,ProcessSegment,,Threshold Event,,InletTemperatureThresholdEvent,'2020-06-21 11:26:00',,FALSE
+47,DT,ProcessSegment,,Threshold Event,,InletTemperatureThresholdEvent,'2020-06-21 11:26:00',,FALSE
+48,DT,ProcessSegment,,Threshold Event,,InletTemperatureThresholdEvent,'2020-06-21 11:26:00',,FALSE
+49,DT,ProcessSegment,,Threshold Event,,InletTemperatureThresholdEvent,'2020-06-21 11:26:00',,FALSE
+50,DT,ProcessSegment,,Threshold Event,,InletTemperatureThresholdEvent,'2020-06-21 11:26:00',,FALSE
+51,DT,ProcessSegment,,Threshold Event,,InletTemperatureThresholdEvent,'2020-06-21 11:26:00',,FALSE
+52,DT,ProcessSegment,,Threshold Event,,InletTemperatureThresholdEvent,'2020-06-21 11:26:00',,FALSE

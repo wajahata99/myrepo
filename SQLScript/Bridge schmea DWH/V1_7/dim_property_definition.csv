@@ -1,0 +1,128 @@
+﻿id,Concept_dimension_source,Property_concept,Property_type,Property_code,Property_name,attribute,value,value_type,insert_date_time,last_update_date_time,delete_flag
+1,dim_equipment,Equipment,Temperature,inlet_temperature,InletTemperature,,,Numeric,'2020-06-21 11:26:00',,FALSE
+2,DT,Equipment,Temperature,,OutletTemperature,,,Numeric,'2020-06-21 11:26:00',,FALSE
+3,DT,Equipment,Temperature,,ExhaustTemperature,,,Numeric,'2020-06-21 11:26:00',,FALSE
+4,DT,Equipment,,,Speed,,,Numeric,'2020-06-21 11:26:00',,FALSE
+5,DT,Equipment,,,Vibration,,,Numeric,'2020-06-21 11:26:00',,FALSE
+6,DT,Equipment,,,Grammage,,,Numeric,'2020-06-21 11:26:00',,FALSE
+7,DT,Equipment,,,PowerRating,,3,Categorical,'2020-06-21 11:26:00',,FALSE
+8,DT,Equipment,,,PowerRating,,6,Categorical,'2020-06-21 11:26:00',,FALSE
+9,DT,Equipment,,,PowerRating,,9,Categorical,'2020-06-21 11:26:00',,FALSE
+10,DT,Equipment,,,PowerRating,,15,Categorical,'2020-06-21 11:26:00',,FALSE
+11,DT,Equipment,,,PowerRating,,30,Categorical,'2020-06-21 11:26:00',,FALSE
+12,DT,Equipment,,,PowerRating,,45,Categorical,'2020-06-21 11:26:00',,FALSE
+13,DT,Equipment,,,PowerRating,,75,Categorical,'2020-06-21 11:26:00',,FALSE
+14,DT,Equipment,,,PowerRating,,112.5,Categorical,'2020-06-21 11:26:00',,FALSE
+15,DT,Equipment,,,PowerRating,,150,Categorical,'2020-06-21 11:26:00',,FALSE
+16,DT,Equipment,,,PowerRating,,225,Categorical,'2020-06-21 11:26:00',,FALSE
+17,DT,Equipment,,,PowerRating,,300,Categorical,'2020-06-21 11:26:00',,FALSE
+18,DT,Equipment,,,PowerRating,,500,Categorical,'2020-06-21 11:26:00',,FALSE
+19,DT,Equipment,,,PowerRating,,750,Categorical,'2020-06-21 11:26:00',,FALSE
+20,DT,Equipment,,,PowerRating,,1000,Categorical,'2020-06-21 11:26:00',,FALSE
+21,DT,Equipment,,,VoltageSpec.,,208,Categorical,'2020-06-21 11:26:00',,FALSE
+22,DT,Equipment,,,VoltageSpec.,,220,Categorical,'2020-06-21 11:26:00',,FALSE
+23,DT,Equipment,,,VoltageSpec.,,240,Categorical,'2020-06-21 11:26:00',,FALSE
+24,DT,Equipment,,,VoltageSpec.,,380,Categorical,'2020-06-21 11:26:00',,FALSE
+25,DT,Equipment,,,VoltageSpec.,,400,Categorical,,,
+26,DT,Equipment,,,VoltageSpec.,,416,Categorical,,,
+27,DT,Equipment,,,VoltageSpec.,,480,Categorical,,,
+28,DT,Equipment,,,VoltageSpec.,,600,Categorical,,,
+29,,,,,,,,,,,
+30,DT,Material,Quantity,,Quantity,,,Numeric,,,
+31,,Equipment Specification,,,,Person,PersonnelDimension,,,,
+32,,OperationsSegment,Rate,,DefinedRate,,,Numeric,,,
+33,,Segment Requirement,Rate,,ScheduledRate,,,Categorical,,,
+34,,Request BOM Item,,,,Quantity,,Numeric,,,
+35,,,,,,,,,,,
+36,,Segment Response,Rate,,ProductionRate,,,Numeric,,,
+37,,Segment Response,,,ProductionRate,LogRate,,Numeric,,,
+38,,Material Actual,,,,Quantity,,Numeric,,,
+39,,,,,,,,,,,
+40,,Material,Quantity,,Quantity,,,Numeric,,,
+41,,Equipment Specification,,,,Person,PersonnelDimension,,,,
+42,,OperationsSegment,Rate,,DefinedRate,,,Numeric,,,
+43,,Segment Requirement,Rate,,ScheduledRate,,,Categorical,,,
+44,,Request BOM Item,,,,Quantity,,Numeric,,,
+45,,,,,,,,,,,
+46,,Segment Response,Rate,,ProductionRate,,,Numeric,,,
+47,,Segment Response,,,ProductionRate,LogRate,,Numeric,,,
+48,,Material Actual,,,,Quantity,,Numeric,,,
+49,,,,,,,,,,,
+50,,Equipment,,,Value,,,,,,
+51,,Equipment,,,Value,,,,,,
+52,,Equipment,,,Value,,,Numeric,,,
+53,,Equipment,,,Warn At,,,Numeric,,,
+54,,Equipment,,,KPI Status,,Red,Categorical,,,
+55,,Equipment,,,KPI Status,,Yellow,Categorical,,,
+56,,Equipment,,,KPI Status,,Green,Categorical,,,
+57,,Equipment,,,Value,,,Numeric,,,
+58,,Location,,,Value,,,Numeric,,,
+59,,Location,,,Value,,,Numeric,,,
+60,,Location,,,Value,,,Numeric,,,
+61,,ProcessSegment,,,Value,,,Numeric,,,
+62,,ProcessSegment,,,Value,,,Numeric,,,
+63,,ProcessSegment,,,Value,,,Numeric,,,
+64,,ProcessSegment,,,Value,,,Numeric,,,
+65,,,,,,,,,,,
+66,,ProcessSegment,,,StateGroup,,OperationalState,Categorical,,,
+67,,ProcessSegment,,,State,,Starting,Categorical,,,
+68,,ProcessSegment,,,State,,Running,Categorical,,,
+69,,ProcessSegment,,,State,,Idle,Categorical,,,
+70,,ProcessSegment,,,State,,Stop,Categorical,,,
+71,,ProcessSegment,,,State,,Cleaning,Categorical,,,
+72,,ProcessSegment,,,State,,Sanitizing,Categorical,,,
+73,,ProcessSegment,,,State,,Breakdown,Categorical,,,
+74,,,,,,,,,,,
+75,,Execution,,,StateGroup,,Maintenance State,Categorical,,,
+76,,Execution,,,State,,ToDo: ,Categorical,,,
+77,,Execution,,,State,,Write valid Maint.,Categorical,,,
+78,,Execution,,,State,,States here.,Categorical,,,
+79,,Execution,,,State,,,Categorical,,,
+80,,Execution,,,State,,,Categorical,,,
+81,,Execution,,,State,,,Categorical,,,
+82,,Execution,,,State,,,Categorical,,,
+83,,,,,,,,,,,
+84,,Execution,,,StateGroup,,ActingState,Categorical,,,
+85,,Execution,,,State,,Running,Categorical,,,
+86,,Execution,,,State,,Suspended,Categorical,,,
+87,,Execution,,,State,,OnHold,Categorical,,,
+88,,Execution,,,State,,Completed,Categorical,,,
+89,,Execution,,,State,,Stopped,Categorical,,,
+90,,Execution,,,State,,Starting,Categorical,,,
+91,,Execution,,,State,,Aborted,Categorical,,,
+92,,,,,,,,,,,
+93,,Equipment,,,Source,,,Categorical,,,
+94,,Equipment,,,StateGroup,,AlarmState,Categorical,,,
+95,,Equipment,,,State,,New,Categorical,,,
+96,,Equipment,,,State,,Ack,Categorical,,,
+97,,Equipment,,,State,,RTN,Categorical,,,
+98,,Equipment,,,Condition,,HiHi,Categorical,,,
+99,,Equipment,,,Condition,,Hi,Categorical,,,
+100,,Equipment,,,Condition,,Low,Categorical,,,
+101,,Equipment,,,Condition,,LowLow,Categorical,,,
+102,,Equipment,,,Severity,,High,Categorical,,,
+103,,Equipment,,,Severity,,MediumHigh,Categorical,,,
+104,,Equipment,,,Severity,,Medium,Categorical,,,
+105,,Equipment,,,Severity,,MediumLow,Categorical,,,
+106,,Equipment,,,Severity,,Low,Categorical,,,
+107,,,,,,,,,,,
+108,,ProcessSegment,,,Source,,,Categorical,,,
+109,,ProcessSegment,,,StateGroup,,AlarmState,Categorical,,,
+110,,ProcessSegment,,,State,,New,Categorical,,,
+111,,ProcessSegment,,,State,,Ack,Categorical,,,
+112,,ProcessSegment,,,State,,RTN,Categorical,,,
+113,,ProcessSegment,,,Condition,,HiHi,Categorical,,,
+114,,ProcessSegment,,,Condition,,Hi,Categorical,,,
+115,,ProcessSegment,,,Condition,,Low,Categorical,,,
+116,,ProcessSegment,,,Condition,,LowLow,Categorical,,,
+117,,ProcessSegment,,,Severity,,High,Categorical,,,
+118,,ProcessSegment,,,Severity,,MediumHigh,Categorical,,,
+119,,ProcessSegment,,,Severity,,Medium,Categorical,,,
+120,,ProcessSegment,,,Severity,,MediumLow,Categorical,,,
+121,,ProcessSegment,,,Severity,,Low,Categorical,,,
+122,,,,,,,,,,,
+123,,OperationRequest,,,,Site,LocationDimension,,,,
+124,,,,,,,,,,,
+125,,Equipment,,,,,,Categorical,,,
+126,,Equipment,,,,,,Categorical,,,
+127,,Equipment,,,,,,Categorical,,,

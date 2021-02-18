@@ -1,0 +1,52 @@
+﻿id,Concept_dimension_Source,KPI_concept,KPI_category,KPI_Type_Code,KPI_Type_name,insert_date_time,last_update_date_time,delete_flag
+1,,Equipment,Production Performance,uptime,Uptime,'2020-06-21 11:26:00',,FALSE
+2,,Equipment,KPI,,Uptime,'2020-06-21 11:26:00',,FALSE
+3,,Equipment,KPI,mtbf,MeanTimeBetweenFailure,'2020-06-21 11:26:00',,FALSE
+4,,Equipment,KPI,,MeanTimeBetweenFailure,'2020-06-21 11:26:00',,FALSE
+5,,Equipment,KPI,,MeanTimeBetweenFailure,'2020-06-21 11:26:00',,FALSE
+6,,Equipment,KPI,,MeanTimeBetweenFailure,'2020-06-21 11:26:00',,FALSE
+7,,Equipment,KPI,,MeanTimeBetweenFailure,'2020-06-21 11:26:00',,FALSE
+8,,Equipment,KPI,,PM ,'2020-06-21 11:26:00',,FALSE
+9,,Location,KPI,,Operative,'2020-06-21 11:26:00',,FALSE
+10,,Location,KPI,,Inoperative,'2020-06-21 11:26:00',,FALSE
+11,,Location,KPI,,Discarded,'2020-06-21 11:26:00',,FALSE
+12,dim_process_segment,ProcessSegment,KPI,,Availability,'2020-06-21 11:26:00',,FALSE
+13,,ProcessSegment,KPI,,Performance,'2020-06-21 11:26:00',,FALSE
+14,,ProcessSegment,KPI,,Quality,'2020-06-21 11:26:00',,FALSE
+15,,ProcessSegment,KPI,,OEE,'2020-06-21 11:26:00',,FALSE
+16,DT,Execution,,State Event,,'2020-06-21 11:26:00',,FALSE
+17,DT,Execution,,State Event,,'2020-06-21 11:26:00',,FALSE
+18,DT,Execution,,State Event,,'2020-06-21 11:26:00',,FALSE
+19,DT,Execution,,State Event,,'2020-06-21 11:26:00',,FALSE
+20,DT,Execution,,State Event,,'2020-06-21 11:26:00',,FALSE
+21,DT,Execution,,State Event,,'2020-06-21 11:26:00',,FALSE
+22,DT,Execution,,State Event,,'2020-06-21 11:26:00',,FALSE
+23,DT,Execution,,State Event,,'2020-06-21 11:26:00',,FALSE
+24,DT,Equipment,,Threshold Event,,'2020-06-21 11:26:00',,FALSE
+25,DT,Equipment,,Threshold Event,,'2020-06-21 11:26:00',,FALSE
+26,DT,Equipment,,Threshold Event,,'2020-06-21 11:26:00',,FALSE
+27,DT,Equipment,,Threshold Event,,'2020-06-21 11:26:00',,FALSE
+28,DT,Equipment,,Threshold Event,,'2020-06-21 11:26:00',,FALSE
+29,DT,Equipment,,Threshold Event,,'2020-06-21 11:26:00',,FALSE
+30,DT,Equipment,,Threshold Event,,'2020-06-21 11:26:00',,FALSE
+31,DT,Equipment,,Threshold Event,,'2020-06-21 11:26:00',,FALSE
+32,DT,Equipment,,Threshold Event,,'2020-06-21 11:26:00',,FALSE
+33,DT,Equipment,,Threshold Event,,'2020-06-21 11:26:00',,FALSE
+34,DT,Equipment,,Threshold Event,,'2020-06-21 11:26:00',,FALSE
+35,DT,Equipment,,Threshold Event,,'2020-06-21 11:26:00',,FALSE
+36,DT,Equipment,,Threshold Event,,'2020-06-21 11:26:00',,FALSE
+37,DT,Equipment,,Threshold Event,,'2020-06-21 11:26:00',,FALSE
+38,DT,ProcessSegment,,Threshold Event,,'2020-06-21 11:26:00',,FALSE
+39,DT,ProcessSegment,,Threshold Event,,'2020-06-21 11:26:00',,FALSE
+40,DT,ProcessSegment,,Threshold Event,,'2020-06-21 11:26:00',,FALSE
+41,DT,ProcessSegment,,Threshold Event,,'2020-06-21 11:26:00',,FALSE
+42,DT,ProcessSegment,,Threshold Event,,'2020-06-21 11:26:00',,FALSE
+43,DT,ProcessSegment,,Threshold Event,,'2020-06-21 11:26:00',,FALSE
+44,DT,ProcessSegment,,Threshold Event,,'2020-06-21 11:26:00',,FALSE
+45,DT,ProcessSegment,,Threshold Event,,'2020-06-21 11:26:00',,FALSE
+46,DT,ProcessSegment,,Threshold Event,,'2020-06-21 11:26:00',,FALSE
+47,DT,ProcessSegment,,Threshold Event,,'2020-06-21 11:26:00',,FALSE
+48,DT,ProcessSegment,,Threshold Event,,'2020-06-21 11:26:00',,FALSE
+49,DT,ProcessSegment,,Threshold Event,,'2020-06-21 11:26:00',,FALSE
+50,DT,ProcessSegment,,Threshold Event,,'2020-06-21 11:26:00',,FALSE
+51,DT,ProcessSegment,,Threshold Event,,'2020-06-21 11:26:00',,FALSE
