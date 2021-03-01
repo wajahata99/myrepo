@@ -1,5 +1,4 @@
 
-
 try:
     f = open("testfile.txt")
     if f.name == 'testfile.txt':
